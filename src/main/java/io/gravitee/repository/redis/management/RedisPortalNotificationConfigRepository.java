@@ -77,6 +77,12 @@ public class RedisPortalNotificationConfigRepository implements PortalNotificati
         portalNotificationConfigRedisRepository.deleteByUser(user);
     }
 
+    @Override
+    public void deleteReference(NotificationReferenceType referenceType, String referenceId) throws TechnicalException {
+        portalNotificationConfigRedisRepository.findByReference(referenceType, referenceId)
+                .forEach(cfg -> portalNotificationConfigRedisRepository.delete(cfg.getUser(), cfg.getReferenceType().name(), cfg.getReferenceId()));
+    }
+
     private PortalNotificationConfig convert(RedisPortalNotificationConfig redisPortalNotificationConfig) {
         if (redisPortalNotificationConfig == null) {
             return null;

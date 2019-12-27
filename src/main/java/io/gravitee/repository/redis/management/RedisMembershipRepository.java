@@ -65,6 +65,12 @@ public class RedisMembershipRepository implements MembershipRepository {
     }
 
     @Override
+    public void deleteMembers(MembershipReferenceType referenceType, String referenceId) throws TechnicalException {
+        membershipRedisRepository.findByReferences(referenceType.name(), Collections.singletonList(referenceId))
+                .forEach(membershipRedisRepository::delete);
+    }
+
+    @Override
     public Optional<Membership> findById(String userId, MembershipReferenceType referenceType, String referenceId) throws TechnicalException {
         return Optional.ofNullable(convert(membershipRedisRepository.findById(userId, referenceType.name(), referenceId)));
     }
