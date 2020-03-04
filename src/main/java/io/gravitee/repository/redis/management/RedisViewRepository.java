@@ -45,6 +45,12 @@ public class RedisViewRepository implements ViewRepository {
     }
 
     @Override
+    public Optional<View> findByKey(final String key) throws TechnicalException {
+        final RedisView redisView = viewRedisRepository.findByKey(key);
+        return Optional.ofNullable(convert(redisView));
+    }
+
+    @Override
     public View create(final View view) throws TechnicalException {
         final RedisView redisView = viewRedisRepository.saveOrUpdate(convert(view));
         return convert(redisView);
@@ -86,6 +92,7 @@ public class RedisViewRepository implements ViewRepository {
         }
         final View view = new View();
         view.setId(redisView.getId());
+        view.setKey(redisView.getKey());
         view.setName(redisView.getName());
         view.setDescription(redisView.getDescription());
         view.setDefaultView(redisView.isDefaultView());
@@ -108,6 +115,7 @@ public class RedisViewRepository implements ViewRepository {
         }
         final RedisView redisView = new RedisView();
         redisView.setId(view.getId());
+        redisView.setKey(view.getKey());
         redisView.setName(view.getName());
         redisView.setDescription(view.getDescription());
         redisView.setDefaultView(view.isDefaultView());

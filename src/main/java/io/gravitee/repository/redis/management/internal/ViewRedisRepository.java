@@ -32,4 +32,6 @@ public interface ViewRedisRepository {
     RedisView saveOrUpdate(RedisView view);
 
     void delete(String view);
+
+    RedisView findByKey(String key);
 }

@@ -16,9 +16,12 @@
 package io.gravitee.repository.redis.management.internal.impl;
 
 import io.gravitee.repository.redis.management.internal.ViewRedisRepository;
+import io.gravitee.repository.redis.management.model.RedisApiKey;
+import io.gravitee.repository.redis.management.model.RedisGroup;
 import io.gravitee.repository.redis.management.model.RedisView;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -49,13 +52,22 @@ public class ViewRedisRepositoryImpl extends AbstractRedisRepository implements 
     }
 
     @Override
+    public RedisView findByKey(final String key) {
+        Object view = redisTemplate.opsForHash().get(REDIS_KEY + ":key", key);
+        return convert(view, RedisView.class);
+    }
+
+    @Override
     public RedisView saveOrUpdate(final RedisView view) {
         redisTemplate.opsForHash().put(REDIS_KEY, view.getId(), view);
+        redisTemplate.opsForHash().put(REDIS_KEY + ":key", view.getKey(), view);
         return view;
     }
 
     @Override
-    public void delete(final String view) {
-        redisTemplate.opsForHash().delete(REDIS_KEY, view);
+    public void delete(final String viewId) {
+        RedisView view = findById(viewId);
+        redisTemplate.opsForHash().delete(REDIS_KEY, viewId);
+        redisTemplate.opsForHash().delete(REDIS_KEY + ":key", view.getKey());
     }
 }
