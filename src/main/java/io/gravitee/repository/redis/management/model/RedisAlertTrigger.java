@@ -15,7 +15,6 @@
  */
 package io.gravitee.repository.redis.management.model;
 
-import java.util.Date;
 import java.util.Objects;
 
 /**
