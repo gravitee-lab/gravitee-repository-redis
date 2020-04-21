@@ -99,6 +99,7 @@ public class RedisIdentityProviderRepository implements IdentityProviderReposito
         identityProvider.setRoleMappings(redisIdentityProvider.getRoleMappings());
         identityProvider.setUserProfileMapping(redisIdentityProvider.getUserProfileMapping());
         identityProvider.setEmailRequired(redisIdentityProvider.getEmailRequired());
+        identityProvider.setSyncMappings(redisIdentityProvider.getSyncMappings());
 
         return identityProvider;
     }
@@ -129,6 +130,7 @@ public class RedisIdentityProviderRepository implements IdentityProviderReposito
         redisIdentityProvider.setRoleMappings(identityProvider.getRoleMappings());
         redisIdentityProvider.setUserProfileMapping(identityProvider.getUserProfileMapping());
         redisIdentityProvider.setEmailRequired(identityProvider.getEmailRequired());
+        redisIdentityProvider.setSyncMappings(identityProvider.getSyncMappings());
 
         return redisIdentityProvider;
     }

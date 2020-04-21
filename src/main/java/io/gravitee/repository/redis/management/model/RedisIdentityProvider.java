@@ -75,6 +75,8 @@ public class RedisIdentityProvider {
 
     private Boolean emailRequired;
 
+    private Boolean syncMappings;
+
     /**
      * Identity provider last updated date
      */
@@ -174,6 +176,14 @@ public class RedisIdentityProvider {
 
     public void setEmailRequired(Boolean emailRequired) {
         this.emailRequired = emailRequired;
+    }
+
+    public Boolean getSyncMappings() {
+        return syncMappings;
+    }
+
+    public void setSyncMappings(Boolean syncMappings) {
+        this.syncMappings = syncMappings;
     }
 
     @Override
