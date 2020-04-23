@@ -32,6 +32,8 @@ public class RedisMembership {
 
     private List<String> roles;
 
+    private String source;
+
     private long createdAt;
 
     private long updatedAt;
@@ -66,6 +68,14 @@ public class RedisMembership {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public long getCreatedAt() {

@@ -144,6 +144,7 @@ public class RedisMembershipRepository implements MembershipRepository {
         redisMembership.setUserId(membership.getUserId());
         redisMembership.setReferenceId(membership.getReferenceId());
         redisMembership.setReferenceType(membership.getReferenceType().name());
+        redisMembership.setSource(membership.getSource());
         if (membership.getRoles() != null) {
             List<String> roles = new ArrayList<>(membership.getRoles().size());
             for (Map.Entry<Integer, String> roleEntry : membership.getRoles().entrySet()) {
@@ -164,6 +165,7 @@ public class RedisMembershipRepository implements MembershipRepository {
         membership.setUserId(redisMembership.getUserId());
         membership.setReferenceId(redisMembership.getReferenceId());
         membership.setReferenceType(MembershipReferenceType.valueOf(redisMembership.getReferenceType()));
+        membership.setSource(redisMembership.getSource());
         if (redisMembership.getRoles() != null) {
             Map<Integer, String> roles = new HashMap<>(redisMembership.getRoles().size());
             for (String roleAsString : redisMembership.getRoles()) {
