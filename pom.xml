@@ -33,7 +33,7 @@
 
 	<properties>
 		<gravitee-repository.version>3.0.0-SNAPSHOT</gravitee-repository.version>
-		<jedis.version>2.9.3</jedis.version>
+		<jedis.version>2.10.2</jedis.version>
 		<spring-data-redis.version>1.8.23.RELEASE</spring-data-redis.version>
 		<maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
 		<embedded-redis.version>0.6</embedded-redis.version>
