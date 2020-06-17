@@ -17,16 +17,15 @@ package io.gravitee.repository.redis.management;
 
 import io.gravitee.repository.exceptions.TechnicalException;
 import io.gravitee.repository.management.api.AlertTriggerRepository;
+import io.gravitee.repository.management.model.AlertEventRule;
+import io.gravitee.repository.management.model.AlertEventType;
 import io.gravitee.repository.management.model.AlertTrigger;
 import io.gravitee.repository.redis.management.internal.AlertRedisRepository;
 import io.gravitee.repository.redis.management.model.RedisAlertTrigger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -102,6 +101,16 @@ public class RedisAlertRepository implements AlertTriggerRepository {
         alert.setEnabled(redisAlertTrigger.isEnabled());
         alert.setCreatedAt(new Date(redisAlertTrigger.getCreatedAt()));
         alert.setUpdatedAt(new Date(redisAlertTrigger.getUpdatedAt()));
+        alert.setParentId(redisAlertTrigger.getParentId());
+        alert.setTemplate(redisAlertTrigger.isTemplate());
+        if (redisAlertTrigger.getEventRules() != null && !redisAlertTrigger.getEventRules().isEmpty()) {
+            alert.setEventRules(new ArrayList<>(redisAlertTrigger.getEventRules().size()));
+            for (String event : redisAlertTrigger.getEventRules()) {
+                AlertEventRule alertEventRule = new AlertEventRule();
+                alertEventRule.setEvent(AlertEventType.valueOf(event));
+                alert.getEventRules().add(alertEventRule);
+            }
+        }
         return alert;
     }
 
@@ -117,8 +126,16 @@ public class RedisAlertRepository implements AlertTriggerRepository {
         redisAlertTrigger.setDefinition(alert.getDefinition());
         redisAlertTrigger.setEnabled(alert.isEnabled());
         redisAlertTrigger.setCreatedAt(alert.getCreatedAt().getTime());
+        redisAlertTrigger.setParentId(alert.getParentId());
+        redisAlertTrigger.setTemplate(alert.isTemplate());
         if (alert.getUpdatedAt() != null) {
             redisAlertTrigger.setUpdatedAt(alert.getUpdatedAt().getTime());
+        }
+        if (alert.getEventRules() != null && !alert.getEventRules().isEmpty()) {
+            redisAlertTrigger.setEventRules(alert.getEventRules().
+                    stream().
+                    map(alertEventRule -> alertEventRule.getEvent().name()).
+                    collect(Collectors.toList()));
         }
         return redisAlertTrigger;
     }

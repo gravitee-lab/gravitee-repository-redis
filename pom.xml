@@ -32,8 +32,8 @@
 	<name>Gravitee.io APIM - Repository - Redis</name>
 
 	<properties>
-		<gravitee-repository.version>1.30.5</gravitee-repository.version>
-		<gravitee-repository-test.version>1.30.4</gravitee-repository-test.version>
+		<gravitee-repository.version>1.30.6-SNAPSHOT</gravitee-repository.version>
+		<gravitee-repository-test.version>1.30.5-SNAPSHOT</gravitee-repository-test.version>
 		<jedis.version>2.9.3</jedis.version>
 		<spring-data-redis.version>1.8.23.RELEASE</spring-data-redis.version>
 		<maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
@@ -161,7 +161,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<skipTests>true</skipTests>
 					<environmentVariables>
 						<management.redis.pool.max>512</management.redis.pool.max>
 					</environmentVariables>

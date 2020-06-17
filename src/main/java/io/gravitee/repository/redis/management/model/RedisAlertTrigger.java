@@ -15,6 +15,7 @@
  */
 package io.gravitee.repository.redis.management.model;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -34,6 +35,9 @@ public class RedisAlertTrigger {
     private boolean enabled;
     private long createdAt;
     private long updatedAt;
+    private String parentId;
+    private boolean template;
+    private List<String> eventRules;
 
     public String getId() {
         return id;
@@ -121,6 +125,30 @@ public class RedisAlertTrigger {
 
     public void setUpdatedAt(long updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+    public boolean isTemplate() {
+        return template;
+    }
+
+    public void setTemplate(boolean template) {
+        this.template = template;
+    }
+
+    public List<String> getEventRules() {
+        return eventRules;
+    }
+
+    public void setEventRules(List<String> eventRules) {
+        this.eventRules = eventRules;
     }
 
     @Override
